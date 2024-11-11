@@ -2,15 +2,16 @@ import { MouseEventHandler, ReactNode } from 'react';
 
 interface Props {
   children: ReactNode;
+  type: 'submit' | 'reset' | 'button';
   isDisabled?: boolean;
   onClick: MouseEventHandler<HTMLButtonElement>;
 }
 
 export default function Button(props: Props) {
-  const { children, onClick, isDisabled } = props;
+  const { children, type, onClick, isDisabled } = props;
 
   return (
-    <button onClick={onClick} disabled={isDisabled}>
+    <button type={type} onClick={onClick} disabled={isDisabled}>
       {children}
     </button>
   );

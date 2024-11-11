@@ -7,12 +7,16 @@ interface Props {
   value?: string;
   placeholder?: string;
   isChecked?: boolean;
-  onChange?: (e: ChangeEvent<HTMLInputElement>) => void;
+  onChange: (e: ChangeEvent<HTMLInputElement>) => void;
 }
 
 function Input(props: Props) {
   const { children, type, name, value, placeholder, isChecked, onChange } =
     props;
+  const isCheckboxOrRadio = type === 'checkbox' || type === 'radio';
+  const valueByType = isCheckboxOrRadio
+    ? { checked: Boolean(isChecked) }
+    : { value };
 
   return (
     <label>
@@ -20,9 +24,8 @@ function Input(props: Props) {
       <input
         type={type}
         name={name}
-        value={value}
+        {...valueByType}
         placeholder={placeholder}
-        checked={isChecked}
         onChange={onChange}
       />
     </label>

@@ -1,4 +1,10 @@
-import { ChangeEvent, useCallback, useState } from 'react';
+import {
+  ChangeEvent,
+  FormEvent,
+  MouseEventHandler,
+  useCallback,
+  useState,
+} from 'react';
 import { useDispatch } from 'react-redux';
 import { addCompany } from '../../store/companiesSlice.ts';
 import Button from '../Button';
@@ -22,9 +28,7 @@ export default function AddForm() {
     [],
   );
 
-  const handleAddCompany = (e) => {
-    e.preventDefault();
-
+  const handleAddCompany = () => {
     const newCompany = {
       id: nanoid(),
       name,
@@ -54,7 +58,7 @@ export default function AddForm() {
         onChange={handleChangeAddress}
       />
 
-      <Button onClick={handleAddCompany} isDisabled={!name}>
+      <Button type="submit" onClick={handleAddCompany} isDisabled={!name}>
         Добавить
       </Button>
     </form>

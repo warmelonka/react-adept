@@ -3,9 +3,9 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useVirtualizer } from '@tanstack/react-virtual';
 import { RootState } from '../../store';
 import { removeSelectedCompanies } from '../../store/companiesSlice.ts';
-import { clearSelection } from '../../store/selectedCompaniesSlice.ts';
+import { clearSelectionAll } from '../../store/selectedCompaniesSlice.ts';
 import CompanyRow from './CompanyRow';
-import SelectAll from './SelectAll';
+import SelectAllCell from './SelectAllCell';
 import Button from '../Button';
 import styles from './Table.module.css';
 
@@ -17,7 +17,7 @@ export default function Table() {
 
   const handleDeleteSelected = () => {
     dispatch(removeSelectedCompanies(selectedIds));
-    dispatch(clearSelection());
+    dispatch(clearSelectionAll());
   };
 
   const virtualizer = useVirtualizer({
@@ -33,14 +33,16 @@ export default function Table() {
           height: `${virtualizer.getTotalSize()}px`,
         }}
       >
-        <Button onClick={handleDeleteSelected}>Удалить выбранное</Button>
+        <Button type="button" onClick={handleDeleteSelected}>
+          Удалить выбранное
+        </Button>
 
         <table>
           <caption>Список компаний</caption>
 
           <thead>
             <tr>
-              <SelectAll />
+              <SelectAllCell />
               <th>Название компании</th>
               <th>Адрес</th>
             </tr>
@@ -50,7 +52,8 @@ export default function Table() {
             {virtualizer.getVirtualItems().map((virtualRow, index) => {
               const row = companies[virtualRow.index];
               const { id, address, name } = row;
-              const isSelected = selectedIds[id] !== undefined;
+              const isSelected = Boolean(selectedIds[id]);
+              const verticalOffset = virtualRow.start - index * virtualRow.size;
 
               return (
                 <tr
@@ -58,9 +61,7 @@ export default function Table() {
                   style={{
                     backgroundColor: isSelected ? 'pink' : '',
                     height: `${virtualRow.size}px`,
-                    transform: `translateY(${
-                      virtualRow.start - index * virtualRow.size
-                    }px)`,
+                    transform: `translateY(${verticalOffset}px)`,
                   }}
                 >
                   <CompanyRow

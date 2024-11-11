@@ -1,6 +1,9 @@
 import { ChangeEvent, memo, useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { toggleSelectId } from '../../../store/selectedCompaniesSlice.ts';
+import {
+  removeSelected,
+  toggleSelectId,
+} from '../../../store/selectedCompaniesSlice.ts';
 import { removeCompany, updateCompany } from '../../../store/companiesSlice.ts';
 import Button from '../../Button';
 import CheckboxCell from '../CheckboxCell';
@@ -42,6 +45,7 @@ function CompanyRow(props: Props) {
 
   const handleRemoveCompany = (id) => {
     dispatch(removeCompany(id));
+    dispatch(removeSelected(id));
   };
 
   return (
@@ -64,14 +68,20 @@ function CompanyRow(props: Props) {
 
       <td>
         {isEdit ? (
-          <Button onClick={handleSaveCompany}>Сохранить</Button>
+          <Button type="button" onClick={handleSaveCompany}>
+            Сохранить
+          </Button>
         ) : (
-          <Button onClick={() => setIsEdit(true)}>Редактировать</Button>
+          <Button type="button" onClick={() => setIsEdit(true)}>
+            Редактировать
+          </Button>
         )}
       </td>
 
       <td>
-        <Button onClick={() => handleRemoveCompany(id)}>Удалить</Button>
+        <Button type="button" onClick={() => handleRemoveCompany(id)}>
+          Удалить
+        </Button>
       </td>
     </>
   );

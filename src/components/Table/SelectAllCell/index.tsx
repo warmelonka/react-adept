@@ -2,9 +2,10 @@ import { useDispatch, useSelector } from 'react-redux';
 import { toggleSelectAll } from '../../../store/selectedCompaniesSlice.ts';
 import CheckboxCell from '../CheckboxCell';
 
-export default function SelectAll() {
+export default function SelectAllCell() {
   const companies = useSelector((state) => state.companies);
   const selectedIds = useSelector((state) => state.selection);
+  const lengthSelectedIds = Object.keys(selectedIds).length;
   const dispatch = useDispatch();
 
   const handleToggleAll = () => {
@@ -13,7 +14,7 @@ export default function SelectAll() {
 
   return (
     <CheckboxCell
-      checked={Object.keys(selectedIds).length === companies.length}
+      checked={lengthSelectedIds === companies.length}
       onChange={handleToggleAll}
     >
       Выделить всё

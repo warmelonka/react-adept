@@ -35,12 +35,20 @@ const selectedCompaniesSlice = createSlice({
       }
     },
 
-    clearSelection: () => {
+    clearSelectionAll: () => {
       return {};
+    },
+
+    removeSelected: (state, action: PayloadAction<Company['id']>) => {
+      delete state[action.payload];
     },
   },
 });
 
-export const { toggleSelectAll, toggleSelectId, clearSelection } =
-  selectedCompaniesSlice.actions;
+export const {
+  toggleSelectAll,
+  toggleSelectId,
+  clearSelectionAll,
+  removeSelected,
+} = selectedCompaniesSlice.actions;
 export default selectedCompaniesSlice.reducer;
