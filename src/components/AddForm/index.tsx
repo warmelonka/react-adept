@@ -1,4 +1,4 @@
-import { ChangeEvent, useState } from 'react';
+import { ChangeEvent, useCallback, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { addCompany } from '../../store/companiesSlice.ts';
 import Button from '../Button';
@@ -8,32 +8,33 @@ import styles from './Form.module.css';
 
 export default function AddForm() {
   const dispatch = useDispatch();
-  const [form, setForm] = useState({
-    name: '',
-    address: '',
-  });
+  const [name, setName] = useState('');
+  const [address, setAddress] = useState('');
 
-  const handleChangeForm = (e: ChangeEvent<HTMLInputElement>) => {
-    setForm({
-      ...form,
-      [e.target.name]: e.target.value,
-    });
-  };
+  const handleChangeName = useCallback((e: ChangeEvent<HTMLInputElement>) => {
+    setName(e.target.value);
+  }, []);
+
+  const handleChangeAddress = useCallback(
+    (e: ChangeEvent<HTMLInputElement>) => {
+      setAddress(e.target.value);
+    },
+    [],
+  );
 
   const handleAddCompany = (e) => {
     e.preventDefault();
 
     const newCompany = {
       id: nanoid(),
-      ...form,
+      name,
+      address,
     };
 
     dispatch(addCompany(newCompany));
 
-    setForm({
-      name: '',
-      address: '',
-    });
+    setName('');
+    setAddress('');
   };
 
   return (
@@ -41,19 +42,19 @@ export default function AddForm() {
       <Input
         type="text"
         name="name"
-        value={form.name}
+        value={name}
         placeholder="Название компании"
-        onChange={handleChangeForm}
+        onChange={handleChangeName}
       />
       <Input
         type="text"
         name="address"
-        value={form.address}
+        value={address}
         placeholder="Адрес"
-        onChange={handleChangeForm}
+        onChange={handleChangeAddress}
       />
 
-      <Button onClick={handleAddCompany} isDisabled={!form.name}>
+      <Button onClick={handleAddCompany} isDisabled={!name}>
         Добавить
       </Button>
     </form>

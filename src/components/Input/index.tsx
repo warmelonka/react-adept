@@ -1,4 +1,4 @@
-import { ChangeEvent, ReactNode } from 'react';
+import { ChangeEvent, memo, ReactNode } from 'react';
 
 interface Props {
   children?: ReactNode;
@@ -10,7 +10,7 @@ interface Props {
   onChange?: (e: ChangeEvent<HTMLInputElement>) => void;
 }
 
-export default function Input(props: Props) {
+function Input(props: Props) {
   const { children, type, name, value, placeholder, isChecked, onChange } =
     props;
 
@@ -28,3 +28,5 @@ export default function Input(props: Props) {
     </label>
   );
 }
+
+export default memo(Input);

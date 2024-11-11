@@ -13,7 +13,7 @@ interface Props {
   isSelected: boolean;
 }
 
-export default memo(function CompanyRow(props: Props) {
+function CompanyRow(props: Props) {
   const { id, name, address, isSelected } = props;
 
   // если редактируемая строка может быть только одна, тогда состояние надо поднять выше и хранить в нём id редактируемой строки
@@ -75,4 +75,6 @@ export default memo(function CompanyRow(props: Props) {
       </td>
     </>
   );
-});
+}
+
+export default memo(CompanyRow);
