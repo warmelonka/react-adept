@@ -13,13 +13,10 @@ const selectedCompaniesSlice = createSlice({
   reducers: {
     toggleSelectAll: (state, action: PayloadAction<string[]>) => {
       const allId = action.payload;
-      const allSelected = allId.every((id) => state[id]);
+      const allSelected = allId.length === Object.keys(state).length;
 
       if (allSelected) {
-        // Если все выбраны, снимаем выбор у каждого ID
-        allId.forEach((id) => {
-          delete state[id];
-        });
+        return {};
       } else {
         // Если не все выбраны, добавляем отсутствующие ID
         allId.forEach((id) => {
