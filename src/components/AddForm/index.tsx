@@ -4,6 +4,7 @@ import { addCompany } from '../../store/companiesSlice.ts';
 import Button from '../Button';
 import Input from '../Input';
 import { nanoid } from 'nanoid';
+import styles from './Form.module.css';
 
 export default function AddForm() {
   const dispatch = useDispatch();
@@ -36,7 +37,7 @@ export default function AddForm() {
   };
 
   return (
-    <form>
+    <form className={styles.form}>
       <Input
         type="text"
         name="name"

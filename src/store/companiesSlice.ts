@@ -19,7 +19,7 @@ const companiesSlice = createSlice({
   initialState,
   reducers: {
     addCompany: (state, action: PayloadAction<Company>) => {
-      state.push(action.payload);
+      return [action.payload, ...state];
     },
 
     updateCompany: (state, action: PayloadAction<Company>) => {

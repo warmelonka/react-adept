@@ -1,11 +1,12 @@
-table, th, tr, td {
+.wrap, th, tr, td {
     border: black solid 1px;
-}
-
-.table {
-    border-collapse: collapse;
 }
 
 td {
     padding: 10px;
+}
+
+.wrap {
+    height: 800px;
+    overflow: auto;
 }

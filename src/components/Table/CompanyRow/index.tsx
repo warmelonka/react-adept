@@ -46,35 +46,33 @@ export default memo(function CompanyRow(props: Props) {
 
   return (
     <>
-      <tr style={{ backgroundColor: isSelected ? 'pink' : '' }}>
-        <CheckboxCell checked={isSelected} onChange={handleCheckToggle} />
+      <CheckboxCell checked={isSelected} onChange={handleCheckToggle} />
 
-        <EditableCell
-          name="name"
-          value={newValue.name}
-          edit={isEdit}
-          onChange={handleUpdateValue}
-        />
+      <EditableCell
+        name="name"
+        value={newValue.name}
+        edit={isEdit}
+        onChange={handleUpdateValue}
+      />
 
-        <EditableCell
-          name="address"
-          value={newValue.address}
-          edit={isEdit}
-          onChange={handleUpdateValue}
-        />
+      <EditableCell
+        name="address"
+        value={newValue.address}
+        edit={isEdit}
+        onChange={handleUpdateValue}
+      />
 
-        <td>
-          {isEdit ? (
-            <Button onClick={handleSaveCompany}>Сохранить</Button>
-          ) : (
-            <Button onClick={() => setIsEdit(true)}>Редактировать</Button>
-          )}
-        </td>
+      <td>
+        {isEdit ? (
+          <Button onClick={handleSaveCompany}>Сохранить</Button>
+        ) : (
+          <Button onClick={() => setIsEdit(true)}>Редактировать</Button>
+        )}
+      </td>
 
-        <td>
-          <Button onClick={() => handleRemoveCompany(id)}>Удалить</Button>
-        </td>
-      </tr>
+      <td>
+        <Button onClick={() => handleRemoveCompany(id)}>Удалить</Button>
+      </td>
     </>
   );
 });
